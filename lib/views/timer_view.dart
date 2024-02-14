@@ -47,30 +47,47 @@ class TimerView extends StatelessWidget {
 
   Widget timerCard(String hours, String minutes, String seconds, TimerController timerController, BuildContext context) {
     return Card(
-      child: Column(
+      child: Stack(
         children: [
-          Text("Timer: $hours: $minutes: $seconds"),
-          Row(
-            children: [
-              ElevatedButton(onPressed: timerController.isActive ? null : timerController.startTimer,
-                  child: const Text("Start")),
-              ElevatedButton(onPressed: () => {
-                timerController.stopTimer()
-              }, child: const Text("Stop")),
-              ElevatedButton(onPressed: timerController.isActive ? null : timerController.resetTimer,
-                  child: const Text("Reset")),
-              ElevatedButton(onPressed: () async {
-                var resultingDuration = await showDurationPicker(
-                    context: context,
-                    initialTime: Duration.zero);
+          Column(
+          children: [
+            const SizedBox(height: 20),
+            Text("Timer: $hours: $minutes: $seconds"),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: timerController.isActive ? null : timerController.startTimer,
+                    child: const Text("Start")),
+                ElevatedButton(onPressed: () => {
+                  timerController.stopTimer()
+                }, child: const Text("Stop")),
+                ElevatedButton(onPressed: timerController.isActive ? null : timerController.resetTimer,
+                    child: const Text("Reset")),
+                ElevatedButton(onPressed: () async {
+                  var resultingDuration = await showDurationPicker(
+                      context: context,
+                      initialTime: Duration.zero);
 
-                if (resultingDuration != null) {
-                  timerController.setDuration(resultingDuration);
-                }
-              }, child: const Text("Choose time"))
-            ],
+                  if (resultingDuration != null) {
+                    timerController.setDuration(resultingDuration);
+                  }
+                }, child: const Text("Choose time"))
+              ],
+            )
+          ],
+        ),
+          Positioned(
+            top: 0,
+              right: 0,
+              child: FloatingActionButton(
+                  onPressed: () => {
+                  print('Close widget')
+                  },
+                child: const Icon(Icons.close),
+              )
           )
-        ],
+        ]
       ),
     );
   }

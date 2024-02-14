@@ -10,15 +10,24 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("TimerCeption"),
       ),
-      body: ListView(
+      body: Stack(
         children: [
-          FloatingActionButton(
-              onPressed: () => {
-              print('New timer')
-              }
-          ),
-          TimerView(),
-        ],
+          ListView(
+          children: [
+            TimerView(),
+          ],
+        ),
+          Positioned(
+            bottom: 0,
+              right: 0,
+              child: FloatingActionButton(
+                  onPressed: () => {
+                    print('New timer')
+                  },
+                child: const Icon(Icons.add),
+              ),
+          )
+        ]
       )
     );
   }
