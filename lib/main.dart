@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:timerception/controllers/counter_controller.dart';
+import 'package:timerception/controllers/file_controller.dart';
+import 'package:timerception/controllers/main_controller.dart';
 import 'package:timerception/controllers/timer_controller.dart';
-import 'package:timerception/models/timer_model.dart';
+import 'package:timerception/views/counter_view.dart';
 import 'package:timerception/views/main_view.dart';
-import 'package:timerception/views/timer_view.dart';
 
 void main() {
   // runApp(const MyApp());
   runApp(
-    ChangeNotifierProvider(
-        create: (_) => TimerController(timerModel: TimerModel(duration: Duration.zero)),
+    MultiProvider(providers: [
+        ChangeNotifierProvider(
+        create: (context) => TimerController()),
+      ChangeNotifierProvider(
+          create: (context) => FileController()),
+      ChangeNotifierProvider(
+          create: (context) => MainController()),
+      ChangeNotifierProvider(
+          create: (context) => CounterController())
+    ],
     child: const MyApp(),
     ),
   );
@@ -45,6 +55,7 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // home: TimerView(),
       home: const MainView(),
+      // home: const CounterView(),
     );
   }
 }

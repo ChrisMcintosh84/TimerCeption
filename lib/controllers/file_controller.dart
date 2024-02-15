@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/timer_model.dart';
 
-class FileController {
+class FileController extends ChangeNotifier {
   // Map<String, dynamic> timerMap = {};
   static const String _key = "timerList";
   List<TimerModel> _timerModelList = [];
